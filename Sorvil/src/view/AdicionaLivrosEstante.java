@@ -1,33 +1,34 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import model.ConexaoBD;
-import model.ListaEstante;
-import model.Livros;
-import model.LivrosEstante;
-
+import service.AdicionarLivro;
+import service.AtualizarTabelaEstante;
 
 /**
  *
- * @author lohcfsz
+ * @author Lohanny
  */
+
 public class AdicionaLivrosEstante extends javax.swing.JFrame {
-    public static final List<LivrosEstante> livrosEstante = new ArrayList<>();
+    
     /**
      * Creates new form TelaPrincipal
      */
-    public AdicionaLivrosEstante() {
+    
+    Estante estante;
+    
+    public AdicionaLivrosEstante(Estante estante) {
         initComponents();
         this.setExtendedState(AdicionaLivrosEstante.MAXIMIZED_BOTH);
+        
+        this.estante = estante;
+        this.atualiza = new AtualizarTabelaEstante(this.estante);
+        this.adicao = new AdicionarLivro(this, this.atualiza);
+        
     }
 
+    AtualizarTabelaEstante atualiza;
+    AdicionarLivro adicao;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,7 +99,7 @@ public class AdicionaLivrosEstante extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(271, 271, 271)
                 .addComponent(btnTelaInicial)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
                 .addComponent(btnEstante)
                 .addGap(277, 277, 277))
         );
@@ -199,29 +200,29 @@ public class AdicionaLivrosEstante extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLimpa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addComponent(btnCadastra, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addContainerGap(1873, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7)
                             .addComponent(entradaPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(entradaEditora, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(entradaNomeLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(entradaAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(entradaAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
+                            .addComponent(entradaNomeLivro)
+                            .addComponent(entradaEditora))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(btnLimpa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCadastra, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(178, 178, 178))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,27 +230,27 @@ public class AdicionaLivrosEstante extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(93, 93, 93)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(entradaNomeLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(entradaAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(entradaEditora, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(entradaPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpa, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCadastra, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -276,36 +277,14 @@ public class AdicionaLivrosEstante extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEstanteActionPerformed
 
     private void btnCadastraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastraActionPerformed
-        if(entradaNomeLivro.getText().isEmpty() || entradaAutor.getText().isEmpty() || entradaEditora.getText().isEmpty() || entradaPaginas.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Todos os dados devem ser preenchidos.");
-        }else{
-            LivrosEstante estante = new LivrosEstante();
-            ConexaoBD conexao = new ConexaoBD();
-            Estante telaEstante = new Estante();
-            conexao.conectar();
-            int resposta;
-            estante.setNomeLivro(entradaNomeLivro.getText());
-            estante.setNomeAutor(entradaAutor.getText());
-            estante.setEditora(entradaEditora.getText());
-            estante.setQntdPaginas(Integer.parseInt(entradaPaginas.getText()));
-            resposta = conexao.adicionarLivroEstante(estante);
-            telaEstante.atualizarTabela();
-            if(resposta == 1){
-                JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso.");
-            }else{
-                JOptionPane.showMessageDialog(null, "Erro ao inserir os dados.");
-            }
-            conexao.desconectar();
-        }
+        adicao.AdicionarLivro();
     }//GEN-LAST:event_btnCadastraActionPerformed
 
     private void btnLimpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpaActionPerformed
-        TelaInicial inicio = new TelaInicial();
         entradaNomeLivro.setText("");
         entradaAutor.setText("");
         entradaEditora.setText("");
         entradaPaginas.setText("");
-        inicio.atualizarTabela();
     }//GEN-LAST:event_btnLimpaActionPerformed
 
     private void entradaPaginasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entradaPaginasActionPerformed
@@ -349,11 +328,22 @@ public class AdicionaLivrosEstante extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdicionaLivrosEstante().setVisible(true);
+                Estante estante = new Estante();
+                
+                AdicionaLivrosEstante adicao = new AdicionaLivrosEstante(estante);
+                adicao.setVisible(true);
             }
         });
     }
@@ -375,4 +365,20 @@ public class AdicionaLivrosEstante extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    public String getNomeLivro(){
+        return entradaNomeLivro.getText();
+    }
+    
+    public String getAutor(){
+        return entradaAutor.getText();
+    }
+    
+    public String getEditora(){
+        return entradaEditora.getText();
+    }
+    
+    public String getPaginas(){
+        return entradaPaginas.getText();
+    }
 }

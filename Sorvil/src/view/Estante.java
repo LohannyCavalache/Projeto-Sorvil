@@ -1,56 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import javax.swing.JOptionPane;
+import service.AtualizarTabelaEstante;
 import javax.swing.table.DefaultTableModel;
-import model.ConexaoBD;
-import model.ListaEstante;
-import model.Livros;
-import model.LivrosEstante;
-
 
 /**
  *
- * @author lohcfsz
+ * @author Lohanny
  */
+
 public class Estante extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaPrincipal
      */
+    
+    AtualizarTabelaEstante atualiza;
+    
     public Estante() {
         initComponents();
         this.setExtendedState(Estante.MAXIMIZED_BOTH);
+        
+        this.atualiza = new AtualizarTabelaEstante(this);
     }
     
-    public void atualizarTabela(){
-        try{
-                ConexaoBD conexao = new ConexaoBD();
-                Connection conn = conexao.conectar();
-                String sql = "SELECT * FROM estantes";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                ResultSet rs = stmt.executeQuery();
-                List<LivrosEstante> listaLivrosEstante = conexao.getLivrosEstante();
-                DefaultTableModel modeloTabela = (DefaultTableModel) tabelaEstante.getModel();
-                modeloTabela.setNumRows(0);
-                for(LivrosEstante le : listaLivrosEstante){
-                    Object[] obj = new Object[]{le.getNomeLivro(), le.getNomeAutor(), le.getEditora(), le.getQntdPaginas()};
-                    modeloTabela.addRow(obj);
-                }
-                rs.close();
-                conn.close();
-            }catch(SQLException e){
-                JOptionPane.showMessageDialog(null, "Erro ao listar tabela." + e.getMessage());
-            }
-    }
+    TelaInicial inicio = new TelaInicial();
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,11 +98,11 @@ public class Estante extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(319, 319, 319)
+                .addGap(234, 234, 234)
                 .addComponent(btnTelaInicial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTelaCadastro)
-                .addGap(278, 278, 278))
+                .addGap(329, 329, 329))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,16 +165,18 @@ public class Estante extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAddLivroEstante, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel1))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1871, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 986, Short.MAX_VALUE)
+                        .addComponent(btnAddLivroEstante, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,10 +185,10 @@ public class Estante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddLivroEstante, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addGap(395, 395, 395))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,25 +211,25 @@ public class Estante extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTelaInicialActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        CadastroLivros telaCadastroLivros = new CadastroLivros();
+        CadastroLivros telaCadastroLivros = new CadastroLivros(inicio);
         telaCadastroLivros.setVisible(true);
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnAddLivroEstanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLivroEstanteActionPerformed
-        AdicionaLivrosEstante telaAdicionaLivrosEstante = new AdicionaLivrosEstante();
+        AdicionaLivrosEstante telaAdicionaLivrosEstante = new AdicionaLivrosEstante(this);
         telaAdicionaLivrosEstante.setVisible(true);
     }//GEN-LAST:event_btnAddLivroEstanteActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        atualizarTabela();
+
     }//GEN-LAST:event_formFocusGained
 
     private void tabelaEstanteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaEstanteFocusGained
-        atualizarTabela();
+
     }//GEN-LAST:event_tabelaEstanteFocusGained
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        atualizarTabela();
+        atualiza.atualiza();
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**
@@ -286,6 +261,10 @@ public class Estante extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -305,4 +284,8 @@ public class Estante extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaEstante;
     // End of variables declaration//GEN-END:variables
+
+    public DefaultTableModel getTabela(){
+        return (DefaultTableModel) tabelaEstante.getModel();
+    } 
 }
