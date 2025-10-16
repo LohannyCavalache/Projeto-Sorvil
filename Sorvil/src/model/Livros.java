@@ -1,5 +1,10 @@
 package model;
 
+/**
+ *
+ * @author Lohanny
+ */
+
 public class Livros{
     private String nomeLivro;
     private String isbn;

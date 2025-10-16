@@ -1,24 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import model.CadastrarUsuarios;
-import model.ConexaoBD;
+import service.FazerLogin;
 
 /**
  *
- * @author lohcfsz
+ * @author Lohanny
  */
+
 public class Login extends javax.swing.JFrame {
     
     /**
      * Creates new form Login
      */
+    
     public Login() {
         initComponents();
         this.setExtendedState(Login.MAXIMIZED_BOTH);
@@ -164,23 +158,23 @@ public class Login extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(691, 691, 691)
+                .addGap(409, 409, 409)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(731, Short.MAX_VALUE))
+                .addContainerGap(409, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(205, 205, 205)
+                .addGap(50, 50, 50)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,34 +190,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        ConexaoBD conexao = new ConexaoBD();
-        if(entradaEmail.getText().isEmpty() || entradaSenha.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
-        }
-        String testeEmail = entradaEmail.getText();
-        boolean email = testeEmail.matches("[a-zA-Z]{1,100}@[a-zA-Z]{1,50}.[a-zA-Z]{3}");
-        if(email == false){
-            JOptionPane.showMessageDialog(null, "Campo de email deve seguir o formato padrão");
-        }
-        if(!entradaEmail.getText().isEmpty() && !entradaSenha.getText().isEmpty() && email == true){
-            conexao.conectar();
-            String login = entradaEmail.getText();
-            String senha = entradaSenha.getText();
-
-            CadastrarUsuarios usuarios = new CadastrarUsuarios();
-            usuarios.setEmail(login);
-            usuarios.setSenha(senha);
-        
-            boolean loginCerto = conexao.verificarLogin(login, senha);
-            if(loginCerto){
-                JOptionPane.showMessageDialog(null, "Seja bem vindo!");
-                TelaInicial inicio = new TelaInicial();
-                inicio.setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(null, "Erro ao fazer login.");
-            }
-        } 
-        conexao.desconectar();
+        FazerLogin login = new FazerLogin(this);
+        login.fazerLogin();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
@@ -252,6 +220,7 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -274,11 +243,11 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 
-    /*private static boolean verificarLogin(String login, String senha) {
-        boolean resultado;
-        
-        }
-        return resultado;
-    }*/
-
+    public String getEmail(){
+        return entradaEmail.getText();
+    }
+    
+    public String getSenha(){
+        return entradaSenha.getText();
+    }
 }

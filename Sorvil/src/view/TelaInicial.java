@@ -1,54 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import javax.swing.JOptionPane;
+import service.AtualizarTabelaLivros;
 import javax.swing.table.DefaultTableModel;
-import model.ConexaoBD;
-import model.Livros;
-
 
 /**
  *
- * @author lohcfsz
+ * @author Lohanny
  */
+
 public class TelaInicial extends javax.swing.JFrame {
     
     /**
      * Creates new form TelaPrincipal
      */
+    
+    AtualizarTabelaLivros atualiza;
+    
     public TelaInicial() {
         initComponents();
         this.setExtendedState(TelaInicial.MAXIMIZED_BOTH);
-
-    }
-    
-    public void atualizarTabela(){
-        try{
-                ConexaoBD conexao = new ConexaoBD();
-                Connection conn = conexao.conectar();
-                String sql = "SELECT * FROM livros";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                ResultSet rs = stmt.executeQuery();
-                List<Livros> listaLivros = conexao.getLivros();
-                DefaultTableModel modeloTabela = (DefaultTableModel) tabela.getModel();
-                modeloTabela.setNumRows(0);
-                for(Livros l : listaLivros){
-                    Object[] obj = new Object[]{l.getNomeLivro(), l.getISBN(), l.getDataPublicacao(), l.getNomeAutor(), l.getEditora(), l.getQntdPaginas()};
-                    modeloTabela.addRow(obj);
-                }
-                rs.close();
-                conn.close();
-            }catch(SQLException e){
-                JOptionPane.showMessageDialog(null, "Erro ao listar tabela." + e.getMessage());
-            }
+        
+        this.atualiza = new AtualizarTabelaLivros(this);
     }
     
     /**
@@ -121,11 +93,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(297, 297, 297)
+                .addGap(225, 225, 225)
                 .addComponent(btnCadasLivro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1035, Short.MAX_VALUE)
+                .addGap(573, 573, 573)
                 .addComponent(btnEstante)
-                .addGap(364, 364, 364))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,16 +139,16 @@ public class TelaInicial extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1847, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 865, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,8 +166,8 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadasLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadasLivroActionPerformed
-        CadastroLivros telaCadasLivros = new CadastroLivros();
-        telaCadasLivros.setVisible(true);
+        CadastroLivros telaCadastroLivros = new CadastroLivros(this);
+        telaCadastroLivros.setVisible(true);
     }//GEN-LAST:event_btnCadasLivroActionPerformed
 
     private void btnEstanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstanteActionPerformed
@@ -204,20 +176,21 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEstanteActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        atualizarTabela();
+        atualiza.atualiza();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        atualizarTabela();
+        
     }//GEN-LAST:event_formFocusGained
 
     private void tabelaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaFocusGained
-        atualizarTabela();
+        
     }//GEN-LAST:event_tabelaFocusGained
 
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -242,6 +215,8 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -259,4 +234,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    public DefaultTableModel getTabela(){
+        return (DefaultTableModel) tabela.getModel();
+    }
 }

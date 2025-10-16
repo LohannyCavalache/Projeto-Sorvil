@@ -1,6 +1,11 @@
 package model;
 
-public class CadastrarUsuarios {
+/**
+ *
+ * @author Lohanny
+ */
+
+public class Usuarios {
     private String nomeUsuario;
     private String email;
     private String senha;

@@ -1,29 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import model.CadastrarUsuarios;
-import model.ConexaoBD;
-import model.Livros;
+import service.CadastrarUsuarios;
 
 /**
  *
- * @author lohcfsz
+ * @author Lohanny
  */
+
 public class Cadastro extends javax.swing.JFrame {
-    public static final List<CadastrarUsuarios> usuarios = new ArrayList<>();
+    
     /**
      * Creates new form Login
      */
+    
+    CadastrarUsuarios cadastro;
+    
     public Cadastro() {
         initComponents();
         this.setExtendedState(Cadastro.MAXIMIZED_BOTH);
+        
+        cadastro = new CadastrarUsuarios(this);
     }
 
     /**
@@ -49,7 +45,6 @@ public class Cadastro extends javax.swing.JFrame {
         entradaUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1966, 1055));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -184,23 +179,25 @@ public class Cadastro extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(690, 690, 690)
+                .addGap(409, 409, 409)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(732, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(200, 200, 200)
+                .addGap(42, 42, 42)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addContainerGap(403, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,37 +212,7 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        String testeNome = entradaUsuario.getText();
-        String testeEmail = entradaEmail.getText();
-        boolean nome = testeNome.matches("[a-zA-Z]{1,500}");
-        boolean email = testeEmail.matches("[a-zA-Z]{1,100}@[a-zA-Z]{1,50}.[a-zA-Z]{3}");
-        if(nome == false){
-            JOptionPane.showMessageDialog(null, "Campo de nome deve conter apenas letras");
-        }else if(email == false){
-            JOptionPane.showMessageDialog(null, "Campo de email deve seguir o formato padrão");
-        }
-        if(entradaUsuario.getText().isEmpty() || entradaEmail.getText().isEmpty() || entradaSenha.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
-        }
-        if(!entradaUsuario.getText().isEmpty() && !entradaEmail.getText().isEmpty() && !entradaSenha.getText().isEmpty() && nome == true && email == true){
-            CadastrarUsuarios usuarios = new CadastrarUsuarios();
-            ConexaoBD conexao = new ConexaoBD();
-            TelaInicial inicio = new TelaInicial();
-            Connection conn = conexao.conectar();
-            int resposta;
-            usuarios.setNomeUsuario(entradaUsuario.getText());
-            usuarios.setEmail(entradaEmail.getText());
-            usuarios.setSenha(entradaSenha.getText());
-            resposta = conexao.adicionarUsuarios(usuarios);
-            inicio.atualizarTabela();
-            if(resposta == 1){
-                JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso.");
-            }else{
-                JOptionPane.showMessageDialog(null, "Erro ao inserir os dados.");
-            }
-            conexao.desconectar();
-        }
-            
+        cadastro.cadastrarUsuario();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
@@ -275,6 +242,8 @@ public class Cadastro extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -298,4 +267,16 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    public String getUsuario(){
+        return entradaUsuario.getText();
+    }
+
+    public String getEmail(){
+        return entradaEmail.getText();
+    }
+    
+    public String getSenha(){
+        return entradaSenha.getText();
+    }
 }
